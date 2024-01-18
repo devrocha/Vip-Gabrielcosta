@@ -1,0 +1,41 @@
+/* 
+    0. css - Cascading Style Sheets
+    1. syntax: 
+        seletor {
+            nome_da_propriedade: valor_da_propriedade;
+        }
+        seletor -> bloco {} -> chave:valor
+    2. seletores:
+        2.1 - É o que vai identificar onde o css deve aplicar suas propriedade;
+            2.1.1 - nome da tag;
+            2.1.2 - nome da classe da tag (acessada por .nome_da_classe) - preferência sob o seletor de tag;
+            2.1.3 - id da tag (acessada por #nome_da_classe) - preferência sob o seletor de tag.
+*/
+
+header {
+    text-align: center;
+}
+
+.titulo {
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+}
+
+.mainContainer {
+    width: 30vw;
+    height: 30vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    border: solid 1px;
+    margin: auto;
+    padding: 10px;
+}
+
+#mainTitulo {
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+}

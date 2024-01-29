@@ -36,32 +36,23 @@ buttonDel.addEventListener('click', () => {
 })
 
 function cadastrarValor(){
-    let valorNumero = parseInt(inputValor.value)
-    valorReceita += valorNumero
-    console.log(valorReceita)
+    valorReceita += parseInt(inputValor.value)
 
     titleReceita.innerText = "Total de Receitas"
 
     resultReceita.innerHTML = valorReceita
-    
 }
 
 function cadastrarDespesa(){
-    let valorNumero = parseInt(inputDespesa.value)
-    valorDespesa += valorNumero
-    console.log(valorDespesa)
+    valorDespesa += parseInt(inputDespesa.value)
 
     titleDespesa.innerText = "Total de Despesas"
 
     resultDespesa.innerHTML = valorDespesa
-    
 }
 
 function balanco(){
     let balanco = valorReceita - valorDespesa
-    console.log(balanco)
 
-    titleBalanco.innerText = "Balanço"
-
-    resultBalanco.innerHTML = balanco
+    titleBalanco.innerText = `Balanço: ${balanco}` // template string: `` || interpolação: `${valor_da_variavel}`
 }

@@ -8,69 +8,76 @@
     LOWER_SNAKE_CASE: usada para numeros fixos (numeros magicos)
 */
 
+const inputName = document.getElementById("name");
+const cpf = document.getElementById("cpf");
+const addButton = document.getElementById("addButton");
+const table = document.getElementById("table");
 
-const inputName = document.getElementById('name')
-const cpf = document.getElementById('cpf')
-const addButton = document.getElementById('addButton')
-const table = document.getElementById('table')
-
-const arrayStudent = []
+let isEdit = false;
+const arrayStudent = [];
+let index = null
 
 function addStudent() {
-    const student = {
-        name: inputName.value,
-        cpf: cpf.value
-    }
+  const student = {
+    name: inputName.value,
+    cpf: cpf.value,
+  };
 
-    arrayStudent.push(student)
+  if (isEdit) {
+    arrayStudent.splice(index, 1, student)
+    isEdit = false
+  } else {
+    arrayStudent.push(student);
+  }
 
-    inputName.value = ''
-    cpf.value = ''
+  inputName.value = "";
+  cpf.value = "";
 
-    tableScreen()
+  tableScreen();
 }
 
 function tableScreen() {
-    table.innerHTML = `
+  table.innerHTML = `
         <tr>
             <th>Nome</th>
             <th>CPF</th>
             <th>Ações</th>
         </tr>
-    `
+    `;
 
-    for (let i = 0; i < arrayStudent.length; i++) {
-        table.innerHTML += `
+  for (let i = 0; i < arrayStudent.length; i++) {
+    table.innerHTML += `
             <tr>
                 <td>${arrayStudent[i].name}</td>
                 <td>${arrayStudent[i].cpf}</td>
                 <td>
-                    <button onclick=deleteStudent()>
+                    <button onclick=deleteStudent(${i})>
                         <img src="./assets/trash.png">
                     </button>
                 </td>
                 <td>
-                    <button onclick=editStudent()>
+                    <button onclick=editStudent(${i})>
                         <img src="./assets/pencil.png" id='edit'>
                     </button>
                 </td>
             </tr>
-        `
-    }
+        `;
+  }
 }
 
-function deleteStudent(){
-    // dica: A função deve receber qual é a posição do array que o aluno a ser deletado está.
-    // dica2: Pesquisar sobre o métode de array chamado "splice"
+function deleteStudent(i) {
+  arrayStudent.splice(i, 1);
+  tableScreen();
 }
 
-function editStudent(){
-    console.log('clicou na edicao')
-    // dica: A função deve receber qual é a posição do array que o aluno a ser deletado está.
-    // dica 2: Pesquisar sobre o métode de array chamado "splice"
-    // dica 3: você vai precisar de uma variável de controle
+function editStudent(i) {
+  
+  inputName.value = arrayStudent[i].name;
+  cpf.value = arrayStudent[i].cpf;
+  isEdit = true
+  index = i
 }
 
-addButton.addEventListener('click', () => {
-    addStudent()
-})
+addButton.addEventListener("click", () => {
+  addStudent();
+});

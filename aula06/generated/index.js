@@ -82,12 +82,14 @@ function oldest() {
 oldest();
 
 function greenEyes() {
-  let isGreen = false;
-  const arrayEye = mockJson.forEach((index) => {
-    if (index.eyeColor == "green") {
-      isGreen = true;
-    }
-  });
+  //let isGreen = false;
+  // mockJson.forEach((index) => {
+  //   if (index.eyeColor == "green") {
+  //     isGreen = true;
+  //   }
+  // });
+
+  const isGreen = mockJson.some((person) => person.eyeColor == "green")
 
   console.log(isGreen);
 }

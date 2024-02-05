@@ -96,12 +96,47 @@ function greenEyes() {
 
 greenEyes();
 
-function fruits() {
-  let maxNumeroRepetido = 0;
-  
+function genders() {
+    const males = mockJson
+        .filter(item => item.gender == 'male')
+        .map(item => item.name)
+
+    const females = mockJson
+        .filter(item => item.gender == 'female')
+        .map(item => item.name)
+
+    console.log(males)
+    console.log(females)
 }
 
-fruits();
+genders()
+
+function favoriteFruit(){
+    const fruits = mockJson.map(item => item.favoriteFruit)
+
+    const objFruits = {}
+
+    for(const fruite of fruits){
+        const countFruites = objFruits[fruite] || 0
+        objFruits[fruite] = countFruites + 1
+    }
+
+    const favoriteFruiteValues = Object.values(objFruits)
+    const favoriteFruiteCount = Math.max(...favoriteFruiteValues)
+    
+    let favoriteFruitName = ''
+    const favoriteFruiteKeys = Object.keys(objFruits)
+
+    for(const key of favoriteFruiteKeys){
+        if(objFruits[key] === favoriteFruiteCount){
+            favoriteFruitName = key
+        }
+    }
+
+    console.log(`A fruta ${favoriteFruitName} é a preferida entre ${favoriteFruiteCount} pessoas`)
+}
+
+favoriteFruit()
 
 /* 
 Atividade

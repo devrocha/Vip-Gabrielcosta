@@ -1,19 +1,105 @@
 async function fetchJson() {
-    const response = await fetch('./generated.json')
-    const data = await response.json() // promise
-    return data
+  const response = await fetch("./generated.json");
+  const data = await response.json(); // promise
+  return data;
 }
 
-const mockJson = await fetchJson()
-console.log("Geral", mockJson)
+const mockJson = await fetchJson();
+console.log("Geral", mockJson);
 
-function filterActive(){
-    //... seu script
-    const arrayFiltradoAtivos = mockJson.filter(item => item.isActive)
-    console.log(arrayFiltradoAtivos)
+function filterActive() {
+  //... seu script
+  const arrayFiltradoAtivos = mockJson.filter((item) => item.isActive);
+  console.log(arrayFiltradoAtivos);
 }
 
-filterActive()
+filterActive();
+
+function alphabeticOrder() {
+  const arrayAlfabetico = mockJson.toSorted((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.name < b.name) {
+      return -1;
+    }
+    return 0;
+  });
+
+  const arrayAlfabeticoFiltrado = arrayAlfabetico.filter(
+    (item) => item.isActive
+  );
+
+  console.log(arrayAlfabeticoFiltrado);
+}
+alphabeticOrder();
+
+function calculateAge() {
+  const year = new Date().getFullYear();
+
+  const arrayNomeIdade = [];
+
+  // for(let i = 0; i < mockJson.length ; i++){
+  //     arrayNomeIdade.push({
+  //         name: mockJson[i].name,
+  //         yearOfBirth:year - mockJson[i].age
+  //     })
+  // }
+
+  for (const person of mockJson) {
+    arrayNomeIdade.push({
+      name: person.name,
+      yearOfBirth: year - person.age,
+    });
+  }
+  console.log(arrayNomeIdade);
+}
+
+calculateAge();
+
+function assumeGender() {
+  const arrayMale = mockJson
+    .filter((item) => item.gender == "male")
+    .map((item) => item.name);
+
+  const arrayFemale = mockJson
+    .filter((item) => item.gender == "female")
+    .map((item) => item.name);
+
+  console.log(arrayMale);
+  console.log(arrayFemale);
+}
+
+assumeGender();
+
+function oldest() {
+  const arrayOld = mockJson.sort((a, b) => {
+    return b.age - a.age;
+  });
+  console.log(arrayOld[0]);
+}
+
+oldest();
+
+function greenEyes() {
+  let isGreen = false;
+  const arrayEye = mockJson.forEach((index) => {
+    if (index.eyeColor == "green") {
+      isGreen = true;
+    }
+  });
+
+  console.log(isGreen);
+}
+
+greenEyes();
+
+function fruits() {
+  let maxNumeroRepetido = 0;
+  
+}
+
+fruits();
 
 /* 
 Atividade

@@ -1,97 +1,107 @@
+import { calcYearOfBirth } from '../utils/birth.js'
+
+// ECMAscript 2015
+
 async function fetchJson() {
-  const response = await fetch("./generated.json");
-  const data = await response.json(); // promise
-  return data;
+    const response = await fetch("./generated.json");
+    const data = await response.json(); // promise
+
+    return data;
 }
 
 const mockJson = await fetchJson();
 console.log("Geral", mockJson);
 
 function filterActive() {
-  //... seu script
-  const arrayFiltradoAtivos = mockJson.filter((item) => item.isActive);
-  console.log(arrayFiltradoAtivos);
+    //... seu script
+    const arrayFiltradoAtivos = mockJson.filter((item) => item.isActive);
+    console.log(arrayFiltradoAtivos);
 }
 
 filterActive();
 
 function alphabeticOrder() {
-  const arrayAlfabetico = mockJson.toSorted((a, b) => {
-    if (a.name > b.name) {
-      return 1;
-    }
-    if (a.name < b.name) {
-      return -1;
-    }
-    return 0;
-  });
+    const arrayAlfabetico = mockJson.toSorted((a, b) => {
+        if (a.name > b.name) {
+            return 1;
+        }
+        if (a.name < b.name) {
+            return -1;
+        }
+        return 0;
+    });
 
-  const arrayAlfabeticoFiltrado = arrayAlfabetico.filter(
-    (item) => item.isActive
-  );
+    const arrayAlfabeticoFiltrado = arrayAlfabetico.filter(
+        (item) => item.isActive
+    );
 
-  console.log(arrayAlfabeticoFiltrado);
+    console.log(arrayAlfabeticoFiltrado);
 }
 alphabeticOrder();
 
 function calculateAge() {
-  const year = new Date().getFullYear();
+    const arrayNomeIdade = [];
 
-  const arrayNomeIdade = [];
+    // for(let i = 0; i < mockJson.length ; i++){
+    //     arrayNomeIdade.push({
+    //         name: mockJson[i].name,
+    //         yearOfBirth:year - mockJson[i].age
+    //     })
+    // }
 
-  // for(let i = 0; i < mockJson.length ; i++){
-  //     arrayNomeIdade.push({
-  //         name: mockJson[i].name,
-  //         yearOfBirth:year - mockJson[i].age
-  //     })
-  // }
-
-  for (const person of mockJson) {
-    arrayNomeIdade.push({
-      name: person.name,
-      yearOfBirth: year - person.age,
-    });
-  }
-  console.log(arrayNomeIdade);
+    for (const person of mockJson) {
+        arrayNomeIdade.push({
+            name: person.name,
+            yearOfBirth: calcYearOfBirth(person.age),
+        });
+    }
+    console.log('birth', arrayNomeIdade);
 }
 
 calculateAge();
 
 function assumeGender() {
-  const arrayMale = mockJson
-    .filter((item) => item.gender == "male")
-    .map((item) => item.name);
+    const arrayMale = mockJson
+        .filter((item) => item.gender == "male")
+        .map((item) => item.name);
 
-  const arrayFemale = mockJson
-    .filter((item) => item.gender == "female")
-    .map((item) => item.name);
+    const arrayFemale = mockJson
+        .filter((item) => item.gender == "female")
+        .map((item) => item.name);
 
-  console.log(arrayMale);
-  console.log(arrayFemale);
+    console.log(arrayMale);
+    console.log(arrayFemale);
 }
 
 assumeGender();
 
 function oldest() {
-  const arrayOld = mockJson.sort((a, b) => {
-    return b.age - a.age;
-  });
-  console.log(arrayOld[0]);
+    const arrayOld = mockJson.sort((a, b) => {
+        return b.age - a.age;
+    });
+    console.log('person1', arrayOld[0]);
+
+    const mapAges = mockJson.map(item => item.age)
+    const biggerAge = Math.max(...mapAges)
+
+    const person = mockJson.find(item => item.age === biggerAge)
+
+    console.log('person2', person)
 }
 
 oldest();
 
 function greenEyes() {
-  //let isGreen = false;
-  // mockJson.forEach((index) => {
-  //   if (index.eyeColor == "green") {
-  //     isGreen = true;
-  //   }
-  // });
+    //let isGreen = false;
+    // mockJson.forEach((index) => {
+    //   if (index.eyeColor == "green") {
+    //     isGreen = true;
+    //   }
+    // });
 
-  const isGreen = mockJson.some((person) => person.eyeColor == "green")
+    const isGreen = mockJson.some((person) => person.eyeColor == "green")
 
-  console.log(isGreen);
+    console.log(isGreen);
 }
 
 greenEyes();
@@ -111,27 +121,28 @@ function genders() {
 
 genders()
 
-function favoriteFruit(){
+function favoriteFruit() {
     const fruits = mockJson.map(item => item.favoriteFruit)
 
     const objFruits = {}
 
-    for(const fruite of fruits){
+    for (const fruite of fruits) {
         const countFruites = objFruits[fruite] || 0
         objFruits[fruite] = countFruites + 1
     }
 
     const favoriteFruiteValues = Object.values(objFruits)
     const favoriteFruiteCount = Math.max(...favoriteFruiteValues)
-    
+
     let favoriteFruitName = ''
     const favoriteFruiteKeys = Object.keys(objFruits)
 
-    for(const key of favoriteFruiteKeys){
-        if(objFruits[key] === favoriteFruiteCount){
+    for (const key of favoriteFruiteKeys) {
+        if (objFruits[key] === favoriteFruiteCount) {
             favoriteFruitName = key
         }
     }
+
 
     console.log(`A fruta ${favoriteFruitName} é a preferida entre ${favoriteFruiteCount} pessoas`)
 }

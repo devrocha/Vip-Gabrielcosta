@@ -1,0 +1,10 @@
+.kontainer{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin: auto;
+}
+
+input{
+    margin-bottom: 10px;
+}

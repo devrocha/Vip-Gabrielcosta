@@ -1,68 +1,46 @@
-import express, { json } from "express";
-import { v4 } from "uuid";
-const app = express();
-const port = 3000;
-app.use(json());
+import { createRouter } from "./routes/routes.js";
+import { app, startServer } from "./config/servidor.js";
 
-const listProduct = [];
+const instanceExpress = app
 
-app.get("/", (req, res) => {
-  const orderedList = listProduct.toSorted((a,b) =>
-    a.preco - b.preco
-  );
-  res.json(orderedList);
-});
+createRouter(instanceExpress)
+startServer()
 
-app.get("/:id" , (req, res) => {
-    const productId = req.params.id
-    const findProduct = listProduct.find((element) => 
-        element.id == productId
-    );
-    if(!findProduct){
-        return res.send('Produto não encontrado')
-    }
-    res.json(findProduct)
-})
+// app.get("/:id", (req, res) => {
+//   const productId = req.params.id
 
-app.post("/", (req, res) => {
-  const product = req.body;
-  listProduct.push({
-    id:v4(),
-    ...product
-  });
-  res.json({
-    message: "Produto cadastrado com sucesso",
-    data: listProduct,
-  });
-});
+//   const findProduct = listProduct.find((element) =>
+//     element.id == productId
+//   );
 
-app.patch("/:id", (req,res) => {
-   const productId = req.params.id
-   const index = listProduct.findIndex((element) => element.id == productId)
-   const body = req.body
+//   if (!findProduct) {
+//     return res.send('Produto não encontrado')
+//   }
 
-   const newProduct = {
-    id:listProduct[index].id,
-    ...listProduct[index],
-    ...body
-   }
+//   res.json(findProduct)
+// })
 
-   listProduct.splice(index, 1, newProduct)
+// app.patch("/:id", (req, res) => {
+//   const productId = req.params.id
+//   const index = listProduct.findIndex((element) => element.id == productId)
+//   const body = req.body
 
-   res.json(newProduct)
-})
+//   const newProduct = {
+//     id: listProduct[index].id,
+//     ...listProduct[index],
+//     ...body
+//   }
 
-app.delete("/:id", (req,res) => {
-  const productId = req.params.id
-   const index = listProduct.findIndex((element) => element.id == productId)
+//   listProduct.splice(index, 1, newProduct)
 
-   listProduct.splice(index, 1)
+//   res.json(newProduct)
+// })
 
-   res.json(listProduct)
-})
+// app.delete("/:id", (req, res) => {
+//   const productId = req.params.id
+//   const index = listProduct.findIndex((element) => element.id == productId)
 
+//   listProduct.splice(index, 1)
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-
+//   res.json(listProduct)
+// })

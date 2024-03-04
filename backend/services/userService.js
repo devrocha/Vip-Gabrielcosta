@@ -21,7 +21,7 @@ export async function findAllUsers() {
 }
 
 export async function updateUserById(userId, data) {
-    const user = await UserModel.findByIdAndUpdate(userId, data)
+    const user = await UserModel.findByIdAndUpdate(userId, data, { returnDocument: 'after' })
 
     return user
 }

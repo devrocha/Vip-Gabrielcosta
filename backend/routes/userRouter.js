@@ -6,11 +6,9 @@ import { deleteUser } from '../controller/users/deleteUser.js'
 
 const router = Router()
 
-const arrayUser = []
-
 router.get(`/`, listUser)
 router.post(`/`, createUser)
-router.patch('/:id', (req, res) => updateUsers(req, res, arrayUser))
-router.delete('/:id', (req, res) => deleteUser(req, res, arrayUser))
+router.patch('/:id', updateUsers)
+router.delete('/:id', deleteUser)
 
 export const userRouter = router

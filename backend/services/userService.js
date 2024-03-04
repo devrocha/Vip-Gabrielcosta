@@ -12,7 +12,7 @@ export async function saveUser(data) {
 
 export async function findAllUsers() {
     try {
-        const users = await UserModel.find()
+        const users = await UserModel.find().populate('customer')
 
         return users
     } catch (error) {

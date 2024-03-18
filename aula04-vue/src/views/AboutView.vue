@@ -1,4 +1,6 @@
 <script setup>
+import GradesDisplay from '@/components/GradesDisplay.vue';
+import InputComponent from '@/components/InputComponent.vue';
 import { computed, ref } from 'vue';
 
 const grade = ref();
@@ -42,17 +44,15 @@ function studentSituation() {
   className.value = 'approvedClass'
 }
 
+const myVariable = ref()
+
 </script>
 <template>
-  <input type="number" placeholder="Nota" v-model="grade">
+  <InputComponent v-model="grade" type="number" placeholder="Nota" @updateModel="myVariable = $event" />
+
   <button @click="newGrade">Cadastrar</button>
 
-  <div class="grades">
-    <span v-show="grades.length">Notas: </span>
-    <span v-for="(element, index) in grades" :key="index">
-      {{ element }}
-    </span>
-  </div>
+  <GradesDisplay :grades="grades" />
   <div v-show="grades.length">
     <p>Melhor nota: {{ bestGrade }}</p>
     <p>Pior nota: {{ worstGrade }}</p>
@@ -65,14 +65,6 @@ function studentSituation() {
 </template>
 
 <style>
-.grades {
-  display: flex;
-}
-
-.grades>span {
-  padding-right: 5px;
-}
-
 .faildClass {
   color: red;
 }
